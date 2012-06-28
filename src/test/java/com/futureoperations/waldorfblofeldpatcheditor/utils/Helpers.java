@@ -8,7 +8,7 @@ public class Helpers {
         public static final byte[] readBlofeldFactorySoundSetFromSystemResource()
                         throws IOException {
                 InputStream blofeldFactorySoundSet = ClassLoader
-                                .getSystemResourceAsStream("test/java/com/futureoperations/waldorfblofeldpatcheditor/resources/blofeldFactorySoundSet.syx");
+                                .getSystemResourceAsStream("resources/blofeldFactorySoundSet.syx");
                 ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
                 int nRead;
@@ -18,6 +18,7 @@ public class Helpers {
                                 data.length)) != -1) {
                         buffer.write(data, 0, nRead);
                 }
+
                 buffer.flush();
 
                 return buffer.toByteArray();
@@ -26,7 +27,7 @@ public class Helpers {
         public static final byte[] readForumOneTwoThreeFromSystemResource()
                         throws IOException {
                 InputStream blofeldFactorySoundSet = ClassLoader
-                                .getSystemResourceAsStream("test/java/com/futureoperations/waldorfblofeldpatcheditor/resources/forumOneTwoThree.syx");
+                                .getSystemResourceAsStream("resources/forumOneTwoThree.syx");
                 ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
                 int nRead;
@@ -36,6 +37,7 @@ public class Helpers {
                                 data.length)) != -1) {
                         buffer.write(data, 0, nRead);
                 }
+
                 buffer.flush();
 
                 return buffer.toByteArray();
