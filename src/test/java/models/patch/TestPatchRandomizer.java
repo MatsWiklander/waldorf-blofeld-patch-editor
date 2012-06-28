@@ -39,7 +39,6 @@ public class TestPatchRandomizer {
                 for (CategoryFilters categoryFilter : CategoryFilters.values()) {
                         if (categoryFilter != CategoryFilters.OFF
                                         && categoryFilter != CategoryFilters.INIT) {
-                                System.out.println(categoryFilter.name);
                                 ArrayList<Patch> filteredPatches = patchRepository
                                                 .filterByCategory(categoryFilter);
                                 int target = 10;

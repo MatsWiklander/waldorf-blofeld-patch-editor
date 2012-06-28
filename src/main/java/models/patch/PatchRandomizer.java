@@ -101,7 +101,7 @@ public class PatchRandomizer {
 
         private final void dumpMad() {
                 for (int i = 0; i < median.length; i++) {
-                        logger.info(median[i] + " +/- " + deviation[i]);
+                        logger.trace(median[i] + " +/- " + deviation[i]);
                 }
         }
 

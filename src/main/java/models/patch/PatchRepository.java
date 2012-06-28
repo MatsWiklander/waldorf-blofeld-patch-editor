@@ -174,7 +174,7 @@ public class PatchRepository {
                                         .setNumber(EnumConverters
                                                         .convertZeroToPlus127(i % 128));
 
-                        logger.info(String.format("Bank %02d - %02d => %s",
+                        logger.trace(String.format("Bank %02d - %02d => %s",
                                         i / 128, i % 128, patches.get(i)
                                                         .getName()));
                 }
