@@ -8,7 +8,7 @@ public class Helpers {
         public static final byte[] readBlofeldFactorySoundSetFromSystemResource()
                         throws IOException {
                 InputStream blofeldFactorySoundSet = ClassLoader
-                                .getSystemResourceAsStream("resources/blofeldFactorySoundSet.syx");
+                                .getSystemResourceAsStream("blofeldFactorySoundSet.syx");
                 ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
                 int nRead;
@@ -27,7 +27,7 @@ public class Helpers {
         public static final byte[] readForumOneTwoThreeFromSystemResource()
                         throws IOException {
                 InputStream blofeldFactorySoundSet = ClassLoader
-                                .getSystemResourceAsStream("resources/forumOneTwoThree.syx");
+                                .getSystemResourceAsStream("forumOneTwoThree.syx");
                 ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
                 int nRead;
