@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import main.java.com.futureoperations.waldorfblofeldpatcheditor.models.enums.CategoryFilters;
+import main.java.com.futureoperations.waldorfblofeldpatcheditor.models.enums.Minus64ToPlus63;
+import main.java.com.futureoperations.waldorfblofeldpatcheditor.models.enums.ZeroToPlus127;
+import main.java.com.futureoperations.waldorfblofeldpatcheditor.models.patch.Categories;
 import main.java.com.futureoperations.waldorfblofeldpatcheditor.models.patch.Patch;
 import main.java.com.futureoperations.waldorfblofeldpatcheditor.models.patch.PatchRandomizer;
 import main.java.com.futureoperations.waldorfblofeldpatcheditor.models.patch.PatchRepository;
@@ -186,6 +189,61 @@ public class TestPatchRandomizer {
                 byte[] newPatches = patchRepository.write();
 
                 FileOutputStream fos = new FileOutputStream("test.syx");
+                fos.write(newPatches);
+
+                fos.flush();
+                fos.close();
+        }
+
+        @Test
+        public void testCreatePatches2() throws IOException {
+                byte[] blofeldFactorySoundSet = Helpers
+                                .readBlofeldFactorySoundSetFromSystemResource();
+
+                PatchRepository patchRepository = new PatchRepository();
+                PatchRepository newPatchRepository = new PatchRepository();
+
+                patchRepository.read(blofeldFactorySoundSet);
+
+                for (int i = 0; i < 1024; i++) {
+                        ArrayList<Patch> filteredPatches = patchRepository
+                                        .filterByCategory(CategoryFilters.OFF);
+
+                        int target = 10;
+
+                        while (filteredPatches.size() != target) {
+                                filteredPatches.remove(generateRandomValue(0,
+                                                filteredPatches.size() - 1));
+                        }
+
+                        PatchRandomizer patchRandomizer = new PatchRandomizer(
+                                        filteredPatches);
+
+                        ArrayList<Patch> randomPatches = patchRandomizer
+                                        .createPatches(1);
+
+                        randomPatches.get(0).setCategory(Categories.INIT);
+
+                        randomPatches.get(0).getAmplifier()
+                                        .setVolume(ZeroToPlus127.PLUS127);
+
+                        randomPatches.get(0).getAmplifier()
+                                        .setVelocity(Minus64ToPlus63.MINUS64);
+
+                        randomPatches.get(0).setName(
+                                        "INIT " + String.format(" %04d", i));
+
+                        newPatchRepository.getPatches().add(
+                                        randomPatches.get(0));
+                }
+
+                newPatchRepository.sortByCategoryAndName();
+
+                newPatchRepository.realignPatches();
+
+                byte[] newPatches = newPatchRepository.write();
+
+                FileOutputStream fos = new FileOutputStream("test2.syx");
                 fos.write(newPatches);
 
                 fos.flush();
