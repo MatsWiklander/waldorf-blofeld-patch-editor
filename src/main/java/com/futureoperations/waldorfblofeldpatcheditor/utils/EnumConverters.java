@@ -117,7 +117,8 @@ public class EnumConverters {
                 return ARPEGGIATOR_MODES.convert(value);
         }
 
-        public static main.java.com.futureoperations.waldorfblofeldpatcheditor.models.patch.Banks convertBanks(final int value) {
+        public static main.java.com.futureoperations.waldorfblofeldpatcheditor.models.patch.Banks convertBanks(
+                        final int value) {
                 return BANKS.convert(value);
         }
 
@@ -228,7 +229,8 @@ public class EnumConverters {
                 return OCTAVES.convert(value);
         }
 
-        public static main.java.com.futureoperations.waldorfblofeldpatcheditor.models.enums.OffOn convertOffOn(final int value) {
+        public static main.java.com.futureoperations.waldorfblofeldpatcheditor.models.enums.OffOn convertOffOn(
+                        final int value) {
                 return OFF_ON.convert(value);
         }
 

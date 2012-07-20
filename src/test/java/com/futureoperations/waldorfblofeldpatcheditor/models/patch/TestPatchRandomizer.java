@@ -34,6 +34,70 @@ public class TestPatchRandomizer {
         }
 
         @Test
+        public void testCreateAllSortsOfPatches() throws IOException {
+                Helpers helpers = new Helpers();
+
+                helpers.getClass();
+
+                byte[] forumOneTwoThreeSoundSet = Helpers
+                                .readForumOneTwoThreeFromSystemResource();
+
+                PatchRepository patchRepository = new PatchRepository();
+                patchRepository.read(forumOneTwoThreeSoundSet);
+
+                PatchRepository newPatchRepository = new PatchRepository();
+
+                ArrayList<Patch> newPatches = new ArrayList<Patch>();
+
+                for (int i = 0; i < 1024; i++) {
+                        ArrayList<Patch> copyOfOriginalPatches = new ArrayList<Patch>();
+
+                        copyOfOriginalPatches.addAll(patchRepository
+                                        .getPatches());
+
+                        reducePatchCount(copyOfOriginalPatches);
+
+                        if (copyOfOriginalPatches.size() != 0) {
+                                PatchRandomizer patchRandomizer = new PatchRandomizer(
+                                                copyOfOriginalPatches);
+
+                                ArrayList<Patch> newPatch = patchRandomizer
+                                                .createPatches(1);
+
+                                newPatch.get(0).setCategory(Categories.INIT);
+
+                                newPatch.get(0)
+                                                .getAmplifier()
+                                                .setVolume(ZeroToPlus127.PLUS127);
+
+                                newPatch.get(0)
+                                                .getAmplifier()
+                                                .setVelocity(Minus64ToPlus63.MINUS64);
+
+                                newPatch.get(0).setName(
+                                                String.format("All Sorts %04d",
+                                                                i));
+
+                                newPatches.add(newPatch.get(0));
+                        }
+                }
+
+                newPatchRepository.read(newPatches);
+
+                newPatchRepository.sortByCategoryAndName();
+
+                newPatchRepository.realignPatches();
+
+                byte[] patchRepositoryRawData = newPatchRepository.write();
+
+                FileOutputStream fos = new FileOutputStream("allsorts.syx");
+                fos.write(patchRepositoryRawData);
+
+                fos.flush();
+                fos.close();
+        }
+
+        @Test
         public void testCreateAllTypesOfPatches() throws IOException {
                 Helpers helpers = new Helpers();
 

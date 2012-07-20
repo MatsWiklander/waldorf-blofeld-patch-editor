@@ -7,7 +7,10 @@ import main.java.com.futureoperations.waldorfblofeldpatcheditor.models.arpeggiat
 import main.java.com.futureoperations.waldorfblofeldpatcheditor.models.arpeggiator.patterns.Steps;
 import main.java.com.futureoperations.waldorfblofeldpatcheditor.models.arpeggiator.patterns.Timings;
 import main.java.com.futureoperations.waldorfblofeldpatcheditor.models.enums.OffOn;
+import main.java.com.futureoperations.waldorfblofeldpatcheditor.models.oscillators.OneTwoShapes;
 import main.java.com.futureoperations.waldorfblofeldpatcheditor.models.oscillators.OscillatorBase;
+import main.java.com.futureoperations.waldorfblofeldpatcheditor.models.oscillators.ThreeShapes;
+import main.java.com.futureoperations.waldorfblofeldpatcheditor.utils.EnumConverters;
 
 import org.apache.log4j.Logger;
 
@@ -86,7 +89,10 @@ public class PatchRandomizer {
                         snapOscillator(patch.getOscillators().getOscillator1());
                         snapOscillator(patch.getOscillators().getOscillator2());
                         snapOscillator(patch.getOscillators().getOscillator3());
+
                         randomizeArpeggiator(patch);
+
+                        randomizeOscillatorWaveforms(patch);
 
                         patch.setCategory(Categories.INIT);
 
@@ -155,13 +161,59 @@ public class PatchRandomizer {
                 patternBase.setGlide(OffOn.values()[generateRandomValue(0,
                                 OffOn.values().length - 1)]);
                 patternBase.setLength(main.java.com.futureoperations.waldorfblofeldpatcheditor.models.arpeggiator.patterns.Lengths
-                                .values()[generateRandomValue(0,
+                                .values()[generateRandomValue(
+                                0,
                                 main.java.com.futureoperations.waldorfblofeldpatcheditor.models.arpeggiator.patterns.Lengths
                                                 .values().length - 1)]);
                 patternBase.setStep(Steps.values()[generateRandomValue(0,
                                 Steps.values().length - 1)]);
                 patternBase.setTiming(Timings.values()[generateRandomValue(0,
                                 Timings.values().length - 1)]);
+        }
+
+        private void randomizeOscillatorWaveforms(final Patch patch) {
+                if (generateRandomValue(0, 3) == 0) {
+                        patch.getOscillators()
+                                        .getOscillator1()
+                                        .setShape(EnumConverters
+                                                        .convertOneTwoShapes(generateRandomValue(
+                                                                        0,
+                                                                        OneTwoShapes.values().length - 1)));
+                        patch.getOscillators()
+                                        .getOscillator2()
+                                        .setShape(EnumConverters
+                                                        .convertOneTwoShapes(generateRandomValue(
+                                                                        0,
+                                                                        OneTwoShapes.values().length - 1)));
+                        patch.getOscillators()
+                                        .getOscillator3()
+                                        .setShape(EnumConverters
+                                                        .convertThreeShapes(generateRandomValue(
+                                                                        0,
+                                                                        ThreeShapes.values().length - 1)));
+
+                        patch.getOscillators()
+                                        .getOscillator1()
+                                        .setPulseWidth(EnumConverters
+                                                        .convertZeroToPlus127(generateRandomValue(
+                                                                        0, 127)));
+                        patch.getOscillators()
+                                        .getOscillator2()
+                                        .setPulseWidth(EnumConverters
+                                                        .convertZeroToPlus127(generateRandomValue(
+                                                                        0, 127)));
+                        patch.getOscillators()
+                                        .getOscillator3()
+                                        .setPulseWidth(EnumConverters
+                                                        .convertZeroToPlus127(generateRandomValue(
+                                                                        0, 127)));
+                        patch.getOscillators().getOscillator1()
+                                        .setLimitWt(OffOn.ON);
+
+                        patch.getOscillators().getOscillator2()
+                                        .setLimitWt(OffOn.ON);
+
+                }
         }
 
         private final void snapOscillator(final OscillatorBase oscillatorBase) {
