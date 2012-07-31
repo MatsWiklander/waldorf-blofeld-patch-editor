@@ -172,7 +172,7 @@ public class PatchRandomizer {
         }
 
         private void randomizeOscillatorWaveforms(final Patch patch) {
-                if (generateRandomValue(0, 3) == 0) {
+                if (generateRandomValue(0, 0) == 0) {
                         patch.getOscillators()
                                         .getOscillator1()
                                         .setShape(EnumConverters
