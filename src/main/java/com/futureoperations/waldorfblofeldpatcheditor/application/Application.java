@@ -8,15 +8,12 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
-import main.java.com.futureoperations.waldorfblofeldpatcheditor.utils.UserActionLogger;
 import net.miginfocom.swing.MigLayout;
 
 public class Application extends JFrame {
         private static final long serialVersionUID = -3437062978258584126L;
 
         public static void main(String args[]) {
-                UserActionLogger.logUserAction();
-
                 java.awt.EventQueue.invokeLater(new Runnable() {
                         @Override
                         public void run() {
@@ -35,8 +32,6 @@ public class Application extends JFrame {
 
         public Application() {
                 setTitle("Random Acts of Kittens");
-
-                UserActionLogger.logUserAction();
 
                 getContentPane().setLayout((new MigLayout()));
 
